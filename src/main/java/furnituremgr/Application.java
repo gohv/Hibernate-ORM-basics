@@ -28,7 +28,16 @@ public class Application {
         Furniture f = findById(id);
         f.setPrice("123");
         update(f);
-        System.out.println(f.toString());
+        System.out.println("UPDATED!");
+
+        delete(f);
+        System.out.println("DELETED!");
+
+
+        for (Furniture ff : fetchFurniture()){
+            System.out.println(ff.toString());
+        }
+
 
 
     }
@@ -76,6 +85,18 @@ public class Application {
         session.beginTransaction();
 
         session.update(furniture);
+
+
+        session.getTransaction().commit();
+
+        session.close();
+    }
+
+    private static void delete(Furniture furniture){
+        Session session = sessionFactory.openSession();
+
+        session.beginTransaction();
+        session.delete(furniture);
 
         session.getTransaction().commit();
 
